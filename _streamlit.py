@@ -18,7 +18,7 @@ if uploaded_file is not None:
     st.image(uploaded_file, caption="Uploaded Image.", use_column_width=True)
 
     # Make a request to the FastAPI endpoint for prediction
-    url = "http://localhost:8000/predict"
+    url = "https://myfirstapp-v3.streamlit.app/predict"
     files = {"file": (uploaded_file.name, uploaded_file.read(), uploaded_file.type)}
 
     response = requests.post(url, files=files)
