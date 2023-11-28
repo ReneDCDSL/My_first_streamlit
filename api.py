@@ -12,7 +12,6 @@ c1, c2 = st.columns(2)
 if upload:
     files = {"file": (upload.name, upload.read(), upload.type)}
     req = requests.post("https://myfirstapp-front.streamlit.app/predict", files=files)  # Assuming FastAPI is running locally
-    req = requests.post("https://your-fastapi-app-url/predict", files=files)
 
     try:
         req.raise_for_status()
