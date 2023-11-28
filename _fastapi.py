@@ -47,6 +47,9 @@ async def predict(file: UploadFile):
         predictions = model.predict(img_processed)
         rec = predictions[0][0].tolist()
 
+        print(f"Request: {file.filename}")
+        print(f"Response: {rec}")
+        
         return {"predictions": rec}
 
 
