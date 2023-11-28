@@ -17,8 +17,8 @@ if uploaded_file is not None:
         response = requests.post(url, files=files)
         response.raise_for_status()  # Raise an HTTPError for bad responses
 
-        # Display the prediction
-        st.json(response.json())
+        # Display the raw content of the response
+        st.write(response.content)
     
     except requests.exceptions.RequestException as e:
         st.error(f"Error making prediction request: {e}")
