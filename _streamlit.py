@@ -4,7 +4,8 @@ import requests
 
 st.title("Poubelle Intelligente")
 
-upload = st.file_uploader("Chargez l'image de votre objet", type=['png', 'jpeg', 'jpg'])
+upload = st.file_uploader("Chargez l'image de votre objet",
+                           type=['png', 'jpeg', 'jpg'])
 
 c1, c2 = st.columns(2)
 
@@ -12,13 +13,9 @@ if upload:
     files = {"file": (upload.name, upload.read(), upload.type)}
     req = requests.post("https://myfirstapp-v3.streamlit.app/predict", files=files)
 
-    print("Request Status Code:", req.status_code)  # Add this line for debugging
-
     if req.status_code == 200:
         try:
             resultat = req.json()
-            print("Response JSON:", resultat)  # Add this line for debugging
-
             rec = resultat["predictions"]
             prob_recyclable = rec * 100
             prob_organic = (1 - rec) * 100
@@ -28,7 +25,7 @@ if upload:
                 c2.write(f"Je suis certain à {prob_recyclable:.2f}% que l'objet est recyclable")
             else:
                 c2.write(f"Je suis certain à {prob_organic:.2f}% que l'objet n'est pas recyclable")
-        except ValueError as e:
-            st.error(f"Invalid response from the server. Error: {e}")
+        except ValueError:
+            st.error("Invalid JSON received from the server.")
     else:
         st.error(f"Error making prediction request. Server returned status code: {req.status_code}")
