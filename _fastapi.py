@@ -7,21 +7,23 @@ from PIL import Image
 
 app = FastAPI()
 
-# Replace "https://myfirstapp-v3.streamlit.app" with your actual Streamlit app domain
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://myfirstapp-v3.streamlit.app"],
+    allow_origins=["*"],  # Adjust as needed
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# Increase the upload size limit to 500MB (adjust as needed)
+app = FastAPI(upload_max_size=500 * 1024 * 1024)
+
+# Load the model
 def load():
     model_path = "best_model.h5"
     model = load_model(model_path, compile=False)
     return model
 
-# Chargement du model
 model = load()
 
 def preprocess(img):
@@ -36,7 +38,7 @@ async def predict(file: UploadFile):
         raise HTTPException(status_code=415, detail="Unsupported file type")
 
     image_data = await file.read()
-
+    
     # open the image
     img = Image.open(io.BytesIO(image_data))
 
