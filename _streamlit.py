@@ -22,7 +22,7 @@ if uploaded_file is not None:
     files = {"file": (uploaded_file.name, uploaded_file.read(), uploaded_file.type)}    
     
     response = requests.post(url, files=files)
-    st.write("Response content:", response.content)
+    st.write("Response content:", response.text)
     
     try:
         resultat = response.json()
