@@ -19,12 +19,19 @@ if uploaded_file is not None:
     files = {"file": (uploaded_file.name, uploaded_file.read(), uploaded_file.type)}    
     
     response = requests.post(url, files=files)
-    resultat = response.json()
-    print(resultat)
-    rec = resultat["predictions"]
-    prob_recyclable = rec * 100      
-    prob_organic = (1-rec)*100
+    st.write("Response content:", response.content)
+    
+    try:
+        resultat = response.json()
+        print(resultat)
+        rec = resultat["predictions"]
+        prob_recyclable = rec * 100      
+        prob_organic = (1-rec)*100
 
+    except requests.exceptions.JSONDecodeError:
+        st.error("Invalid JSON received from the server.")
+    except Exception as e:
+        st.error(f"Error: {str(e)}") 
         
     c1.image(Image.open(uploaded_file))
     if prob_recyclable > 50:
