@@ -21,7 +21,7 @@ if uploaded_file is not None:
     url = "https://myfirstapp-v3.streamlit.app/predict"
     files = {"file": (uploaded_file.name, uploaded_file.read(), uploaded_file.type)}
 
-    response = requests.post(url, file=files)
+    response = requests.post(url, files=files)
 
     try:
         resultat = response.json()
