@@ -11,7 +11,7 @@ c1, c2 = st.columns(2)
 
 if upload:
     files = {"file": (upload.name, upload.read(), upload.type)}
-    req = requests.post("http://127.0.0.1:8000/predict", files=files)  # Assuming FastAPI is running locally
+    req = requests.post("https://myfirstapp-front.streamlit.app/predict", files=files)  # Assuming FastAPI is running locally
     
     if req.status_code == 200:
         print(req.content)  # Print the raw content of the response
