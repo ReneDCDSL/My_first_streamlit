@@ -47,7 +47,7 @@ async def predict(file: UploadFile):
         predictions = model.predict(img_processed)
         rec = predictions[0][0].tolist()
 
-        return JSONResponse(content={"predictions": rec})
+        return {"predictions": rec}
 
 
     except Exception as e:
