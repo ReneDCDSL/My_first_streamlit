@@ -28,4 +28,5 @@ if upload:
         except ValueError:
             st.error("Invalid JSON received from the server.")
     else:
-        st.error(f"Error making prediction request. Server returned status code: {req.status_code}")
+        st.error(f"Error making prediction request. Server returned status code: {req.status_code}\n"
+                 f"Response content: {req.text}")
