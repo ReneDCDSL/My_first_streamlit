@@ -28,20 +28,19 @@ def preprocess(img):
 
 @app.post("/predict")
 async def predict(file: UploadFile):
+    if file.content_type not in ["image/jpeg", "image/png"]:
+        raise HTTPException(status_code=415, detail="Unsupported file type")
+
     image_data = await file.read()
 
-    # ouvrir l'image
+    # open the image
     img = Image.open(io.BytesIO(image_data))
 
     # preprocessing
     img_processed = preprocess(img)
 
     # prediction
-
     predictions = model.predict(img_processed)
     rec = predictions[0][0].tolist()
 
     return {"predictions": rec}
-
-
-
