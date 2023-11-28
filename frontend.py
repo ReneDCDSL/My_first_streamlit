@@ -3,8 +3,17 @@ from tensorflow.keras.models import load_model
 import numpy as np
 import io
 from PIL import Image
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # You can replace "*" with the specific domain of your Streamlit app
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def load():
     model_path = "best_model.h5"
