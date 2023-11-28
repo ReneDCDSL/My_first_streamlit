@@ -49,6 +49,5 @@ async def predict(file: UploadFile):
 
         return JSONResponse(content={"predictions": rec})
 
-
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

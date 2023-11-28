@@ -33,3 +33,7 @@ if upload:
     except json.decoder.JSONDecodeError:
         st.error("Invalid JSON response:")
         st.text(req.text)  # Print the actual response text
+    
+
+# Display the prediction
+st.json(response.json())  # Assuming 'response' is the variable holding the FastAPI response
