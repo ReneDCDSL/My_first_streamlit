@@ -12,7 +12,7 @@ c1, c2 = st.columns(2)
 
 if upload:
     files = {"file": (upload.name, upload.read(), upload.type)}
-    req = requests.post("hhttps://myfirstapp-front.streamlit.app/predict", files=files)
+    req = requests.post("https://myfirstapp-front.streamlit.app/predict", files=files)
     resultat = req.json()
     print(resultat)
     rec = resultat["predictions"]
