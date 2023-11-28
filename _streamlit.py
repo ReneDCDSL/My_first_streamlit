@@ -23,18 +23,21 @@ if uploaded_file is not None:
 
     response = requests.post(url, files=files)
 
-    try:
-        resultat = response.json()
-        print(resultat)
-        rec = resultat["predictions"]
-        prob_recyclable = rec * 100
-        prob_organic = (1 - rec) * 100
+    if response.status_code == 200:
+        try:
+            resultat = response.json()
+            print(resultat)
+            rec = resultat["predictions"]
+            prob_recyclable = rec * 100
+            prob_organic = (1 - rec) * 100
 
-    except json.JSONDecodeError:
-        st.error(f"Invalid JSON received from the server. Response content: {response.json()}")
-    except Exception as e:
-        st.error(f"Error: {str(e)}")
-
+        except json.JSONDecodeError:
+            st.error(f"Invalid JSON received from the server. Response content: {response.json()}")
+        except Exception as e:
+            st.error(f"Error: {str(e)}")
+    else:
+        st.error(f"Error: {response.status_code}")
+    
     c1.image(Image.open(uploaded_file))
     if prob_recyclable > 50:
         c2.write(f"Je suis certain à {prob_recyclable:.2f} % que l'objet est recyclable")
