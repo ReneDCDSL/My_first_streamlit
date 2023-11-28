@@ -31,7 +31,7 @@ if uploaded_file is not None:
         prob_organic = (1 - rec) * 100
 
     except json.JSONDecodeError:
-        st.error(f"Invalid JSON received from the server. Response content: {response.text}")
+        st.error(f"Invalid JSON received from the server. Response content: {response.json}")
     except Exception as e:
         st.error(f"Error: {str(e)}")
 
