@@ -20,4 +20,7 @@ if upload:
 
         c1.image(Image.open(upload))
         if prob_recyclable > 50:
-            c2.write(f"Je suis certain à {prob_recyclab
+            c2.write("Je suis certain à {:.2f}% que l'objet est recyclable".format(prob_recyclable))
+        else:
+            c2.write("Je suis certain à {:.2f}% que l'objet n'est pas recyclable".format(prob_organic))
+
