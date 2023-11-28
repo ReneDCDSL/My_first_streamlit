@@ -48,7 +48,8 @@ async def predict(file: UploadFile):
         predictions = model.predict(img_processed)
         rec = predictions[0][0].tolist()
 
-        return JSONResponse(content={"predictions": rec})
+        # Explicitly set content type to application/json
+        return JSONResponse(content={"predictions": rec}, media_type="application/json")
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
