@@ -15,6 +15,7 @@ if upload:
     if req.status_code == 200:
         try:
             resultat = req.json()
+            st.write("Received response:", resultat)  # Add this line to display the received response
             if "predictions" in resultat:
                 rec = resultat["predictions"]
                 prob_recyclable = rec * 100
