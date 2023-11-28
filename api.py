@@ -1,7 +1,7 @@
 import streamlit as st
 from PIL import Image
 import requests
-import json  # Ensure the json module is imported
+import json
 
 st.title("Poubelle Intelligente")
 
@@ -16,31 +16,20 @@ if upload:
     try:
         req.raise_for_status()
         resultat = req.json()
-    except requests.HTTPError as err:
-        print(f"HTTP error occurred: {err}")
-        print(req.text)  # Print the actual response text
-    except json.decoder.JSONDecodeError:
-        print("Invalid JSON response:", req.text)
-        # Handle the error as needed
-    
-    if req.status_code == 200:
-        print(req.content)  # Print the raw content of the response
-        print(req.status_code)
-        print(req.text)
-        try:
-            resultat = req.json()
-            print(resultat)
-            rec = resultat["predictions"]
-            prob_recyclable = rec * 100
-            prob_organic = (1 - rec) * 100
+        print(resultat)  # Print the response for debugging
+        rec = resultat["predictions"]
+        prob_recyclable = rec * 100
+        prob_organic = (1 - rec) * 100
 
-            c1.image(Image.open(upload))
-            if prob_recyclable > 50:
-                c2.write(f"Je suis certain à {prob_recyclable:.2f} % que l'objet est recyclable")
-            else:
-                c2.write(f"Je suis certain à {prob_organic:.2f} % que l'objet n'est pas recyclable")
-        except json.JSONDecodeError:
-            print("Response is not valid JSON.")
-            # Handle non-JSON response here
-    else:
-        print(f"Request failed with status code: {req.status_code}")
+        c1.image(Image.open(upload))
+        if prob_recyclable > 50:
+            c2.write(f"Je suis certain à {prob_recyclable:.2f} % que l'objet est recyclable")
+        else:
+            c2.write(f"Je suis certain à {prob_organic:.2f} % que l'objet n'est pas recyclable")
+
+    except requests.HTTPError as err:
+        st.error(f"HTTP error occurred: {err}")
+        st.text(req.text)  # Print the actual response text
+    except json.decoder.JSONDecodeError:
+        st.error("Invalid JSON response:")
+        st.text(req.text)  # Print the actual response text
