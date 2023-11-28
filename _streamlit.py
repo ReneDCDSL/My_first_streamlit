@@ -15,7 +15,7 @@ if upload:
     if req.status_code == 200:
         try:
             resultat = req.json()
-            st.write("Received response:", resultat)  # Add this line to display the received response
+            st.write("Received response:", resultat)  # Display the received response for debugging
             if "predictions" in resultat:
                 rec = resultat["predictions"]
                 prob_recyclable = rec * 100
@@ -29,6 +29,6 @@ if upload:
             else:
                 st.error("Invalid response format from the server.")
         except ValueError:
-            st.error("Invalid response format from the server.")
+            st.error("Invalid JSON received from the server.")
     else:
         st.error(f"Error making prediction request. Server returned status code: {req.status_code}")
