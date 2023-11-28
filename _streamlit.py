@@ -19,7 +19,7 @@ if uploaded_file is not None:
 
     # Make a request to the FastAPI endpoint for prediction
     url = "https://myfirstapp-v3.streamlit.app/predict"
-    files = {"file": (uploaded_file.name, uploaded_file.read(), uploaded_file.type)}
+    files = {"file": (uploaded_file.read())}
 
     response = requests.post(url, files=files)
 
