@@ -7,21 +7,22 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+# Enable CORS (Cross-Origin Resource Sharing)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Replace with the specific domain of your Streamlit app
+    allow_origins=["*"],  # Adjust this to match your Streamlit app's domain
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-def load():
+def load_model():
     model_path = "best_model.h5"
     model = load_model(model_path, compile=False)
     return model
 
 # Load the model
-model = load()
+model = load_model()
 
 def preprocess(img):
     img = img.resize((224, 224))
