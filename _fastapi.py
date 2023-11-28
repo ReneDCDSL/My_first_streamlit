@@ -4,6 +4,14 @@ import numpy as np
 import io
 from PIL import Image
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Make sure this allows your Streamlit app domain
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app = FastAPI()
 
 @app.get("/")
