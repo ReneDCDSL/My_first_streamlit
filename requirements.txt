@@ -3,6 +3,3 @@ uvicorn
 python-multipart
 tensorflow
 pillow
-pandas
-scikit-learn
-requests
