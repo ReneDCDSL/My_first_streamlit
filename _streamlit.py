@@ -31,10 +31,12 @@ if uploaded_file is not None:
         prob_recyclable = rec * 100      
         prob_organic = (1-rec) * 100
 
-    except requests.exceptions.JSONDecodeError:
-        st.error("Invalid JSON received from the server.")
+    except requests.exceptions.JSONDecodeError as json_error:
+        st.error(f"JSON Decode Error: {json_error}")
+    except KeyError as key_error:
+        st.error(f"Key Error: {key_error}")
     except Exception as e:
-        st.error(f"Error: {str(e)}") 
+        st.error(f"Error: {str(e)}")
         
     c1.image(Image.open(uploaded_file))
     if prob_recyclable > 50:
