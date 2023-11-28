@@ -16,7 +16,7 @@ if uploaded_file is not None:
     # Make a request to the FastAPI endpoint for prediction
     # Replace 'http://your-fastapi-server:8000' with the actual address of your FastAPI server
     url = "https://myfirstapp-v3.streamlit.app/predict"
-    files = {"file": (upload.name, upload.read(), upload.type)}    
+    files = {"file": (uploaded_file.name, uploaded_file.read(), uploaded_file.type)}    
     
     try:
         response = requests.post(url, files=files)
@@ -29,7 +29,7 @@ if uploaded_file is not None:
     except requests.exceptions.RequestException as e:
         st.error(f"Error making prediction request: {e}")  
         
-    c1.image(Image.open(upload))
+    c1.image(Image.open(uploaded_file))
     if prob_recyclable > 50:
         c2.write(f"Je suis certain à {prob_recyclable:.2f} % que l'objet est recyclable")
     else:
