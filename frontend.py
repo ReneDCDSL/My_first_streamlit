@@ -11,9 +11,8 @@ upload = st.file_uploader("Chargez l'image de votre objet",
 c1, c2 = st.columns(2)
 
 if upload:
-    files = {"file" :  upload.getvalue()}
-
-    req = requests.post("https://myfirstapp-frontend.streamlit.app/predict", files=files)
+    files = {"file": (upload.name, upload.read(), upload.type)}
+    req = requests.post("https://your-fastapi-app-url/predict", files=files)
     resultat = req.json()
     print(resultat)
     rec = resultat["predictions"]
