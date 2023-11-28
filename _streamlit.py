@@ -9,6 +9,9 @@ c1, c2 = st.columns(2)
 # Streamlit code for file upload
 uploaded_file = st.file_uploader("Choose a file", type=["jpg", "jpeg", "png"])
 
+prob_recyclable = 0  # Initialize variables before try block
+prob_organic = 0
+
 if uploaded_file is not None:
     # Display the selected image
     st.image(uploaded_file, caption="Uploaded Image.", use_column_width=True)
@@ -26,7 +29,7 @@ if uploaded_file is not None:
         print(resultat)
         rec = resultat["predictions"]
         prob_recyclable = rec * 100      
-        prob_organic = (1-rec)*100
+        prob_organic = (1-rec) * 100
 
     except requests.exceptions.JSONDecodeError:
         st.error("Invalid JSON received from the server.")
@@ -38,5 +41,3 @@ if uploaded_file is not None:
         c2.write(f"Je suis certain à {prob_recyclable:.2f} % que l'objet est recyclable")
     else:
         c2.write(f"Je suis certain à {prob_organic:.2f} % que l'objet n'est pas recyclable")
-
-
