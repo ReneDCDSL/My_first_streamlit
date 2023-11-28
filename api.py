@@ -15,6 +15,8 @@ if upload:
     
     if req.status_code == 200:
         print(req.content)  # Print the raw content of the response
+        print(req.status_code)
+        print(req.text)
         try:
             resultat = req.json()
             print(resultat)
