@@ -16,6 +16,11 @@ if upload:
         try:
             resultat = req.json()
             st.write("Received response:", resultat)  # Display the received response for debugging
+
+            # Additional debugging to print raw response content
+            st.text("Raw response content:")
+            st.text(req.content)
+
             if "predictions" in resultat:
                 rec = resultat["predictions"]
                 prob_recyclable = rec * 100
