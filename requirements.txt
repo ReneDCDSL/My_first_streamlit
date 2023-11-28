@@ -5,3 +5,5 @@ tensorflow
 pillow
 pandas
 scikit-learn
+requests
+io
