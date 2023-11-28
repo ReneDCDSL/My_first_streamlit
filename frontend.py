@@ -1,4 +1,5 @@
 from fastapi import FastAPI, UploadFile, HTTPException
+from fastapi.responses import JSONResponse  # Import JSONResponse
 from tensorflow.keras.models import load_model
 import numpy as np
 import io
@@ -9,7 +10,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # You can replace "*" with the specific domain of your Streamlit app
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -20,7 +21,7 @@ def load():
     model = load_model(model_path, compile=False)
     return model
 
-# Chargement du model
+# Load the model
 model = load()
 
 def preprocess(img):
