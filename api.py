@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile
+from fastapi import FastAPI, UploadFile, HTTPException
 from tensorflow.keras.models import load_model
 import numpy as np
 import io
