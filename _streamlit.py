@@ -10,7 +10,7 @@ if uploaded_file is not None:
 
     # Make a request to the FastAPI endpoint for prediction
     # Replace 'http://your-fastapi-server:8000' with the actual address of your FastAPI server
-    url = "http://your-fastapi-server:8000/predict"
+    url = "https://myfirstapp-v3.streamlit.app/predict"
     files = {"file": uploaded_file}
     
     try:
