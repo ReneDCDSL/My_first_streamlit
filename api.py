@@ -12,6 +12,17 @@ c1, c2 = st.columns(2)
 if upload:
     files = {"file": (upload.name, upload.read(), upload.type)}
     req = requests.post("https://myfirstapp-front.streamlit.app/predict", files=files)  # Assuming FastAPI is running locally
+    req = requests.post("https://your-fastapi-app-url/predict", files=files)
+
+    try:
+        req.raise_for_status()
+        resultat = req.json()
+    except requests.HTTPError as err:
+        print(f"HTTP error occurred: {err}")
+        print(req.text)  # Print the actual response text
+    except json.decoder.JSONDecodeError:
+        print("Invalid JSON response:", req.text)
+        # Handle the error as needed
     
     if req.status_code == 200:
         print(req.content)  # Print the raw content of the response
