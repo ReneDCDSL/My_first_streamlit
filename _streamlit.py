@@ -2,11 +2,9 @@ import streamlit as st
 from PIL import Image
 import requests
 
-
 st.title("Poubelle Intelligente")
 
-upload = st.file_uploader("Chargez l'image de votre objet",
-                           type=['png', 'jpeg', 'jpg'])
+upload = st.file_uploader("Chargez l'image de votre objet", type=['png', 'jpeg', 'jpg'])
 
 c1, c2 = st.columns(2)
 
@@ -27,6 +25,6 @@ if upload:
             else:
                 c2.write(f"Je suis certain à {prob_organic:.2f}% que l'objet n'est pas recyclable")
         except ValueError:
-            st.error("Invalid response from the server.")
+            st.error("Invalid response from the server. Please try again.")
     else:
-        st.error(f"Error making prediction request: {req.text}")
+        st.error("Error making prediction request. Please try again.")
